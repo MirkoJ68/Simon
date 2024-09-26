@@ -1,13 +1,19 @@
 let secuencia = [];
 let secuenciaJugador = [];  
-let verde;
-let rojo;
-let azul;
-let rosa;
+let verde, rojo, azul, rosa;
 let aux = 0;
 let turnoJugador = false;
 let paso = 0;
+let puntos = 0;
+let sonido1, sonido2, sonido3, sonido4;
 
+function preload() {
+  soundFormats('mp3', 'ogg');
+  sonido1 = loadSound('pa.mp3');
+  sonido2 = loadSound('pe.mp3');
+  sonido3 = loadSound('pi.mp3');
+  sonido4 = loadSound('pu.mp3');
+}
 function setup() {
   createCanvas(windowWidth, windowHeight);
   verde = createSprite(300, 300,
@@ -16,6 +22,7 @@ function setup() {
   verde.onMousePressed = function() {
     if (turnoJugador) {
       this.shapeColor = color(0, 255, 0);
+      sonido1.play();
       secuenciaJugador.push(1);
       verificarSecuencia();
     }
@@ -30,6 +37,7 @@ function setup() {
   rojo.onMousePressed = function() {
     if (turnoJugador) {
       this.shapeColor = color(255, 0, 0);
+      sonido2.play();
       secuenciaJugador.push(2);
       verificarSecuencia();
     }
@@ -44,6 +52,7 @@ function setup() {
   azul.onMousePressed = function() {
     if (turnoJugador) {
       this.shapeColor = color(0, 0, 255);
+      sonido3.play();
       secuenciaJugador.push(3);
       verificarSecuencia();
     }
@@ -58,6 +67,7 @@ function setup() {
   rosa.onMousePressed = function() {
     if (turnoJugador) {
       this.shapeColor = color(255, 192, 213);
+      sonido4.play();
       secuenciaJugador.push(4);
       verificarSecuencia();
     }
@@ -98,15 +108,19 @@ function secuenciaC(){
   function encenderwindow(v) {
     if (v === 1) {
       verde.shapeColor = color(0, 255, 0);
+      sonido1.play();
       setTimeout(() => verde.shapeColor = color(0, 150, 0), 500);
     } else if (v === 2) {
       rojo.shapeColor = color(255, 0, 0);
+      sonido2.play();
       setTimeout(() => rojo.shapeColor = color(150, 0, 0), 500);
     } else if (v === 3) {
       azul.shapeColor = color(0, 0, 255);
+      sonido3.play();
       setTimeout(() => azul.shapeColor = color(0, 0, 150), 500);
     } else if (v === 4) {
       rosa.shapeColor = color(255, 192, 213);
+      sonido4.play();
       setTimeout(() => rosa.shapeColor = color(205, 142, 190), 500);
     }
   }
@@ -118,6 +132,7 @@ function secuenciaC(){
       alert("perdiste");
       reiniciarJuego();
     } else if (secuenciaJugador.length === secuencia.length) {
+      puntos ++;
       setTimeout(() => secuenciaC(), 1000);
     }
   }
@@ -126,13 +141,16 @@ function secuenciaC(){
     secuencia = [];
     secuenciaJugador = [];
     paso = 0;
+    puntos = 0;
     secuenciaC();
   }
 
 function draw() {
   background(50);
   drawSprites();
-    console.log(secuenciaJugador)
+  fill(255);
+  textSize(90);
+  text("Puntos: " + puntos, 850, height / 2);
    
 }
 
