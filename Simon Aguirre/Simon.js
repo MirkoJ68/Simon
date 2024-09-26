@@ -5,6 +5,7 @@ let aux = 0;
 let turnoJugador = false;
 let paso = 0;
 let puntos = 0;
+let fallos = 0;
 let sonido1, sonido2, sonido3, sonido4;
 
 function preload() {
@@ -142,6 +143,7 @@ function secuenciaC(){
     secuenciaJugador = [];
     paso = 0;
     puntos = 0;
+    fallos ++;
     secuenciaC();
   }
 
@@ -150,7 +152,8 @@ function draw() {
   drawSprites();
   fill(255);
   textSize(90);
-  text("Puntos: " + puntos, 850, height / 2);
+  text(`Puntos : ${puntos}`, 850, height - 470);
+  text(`Fallos : ${fallos}`, 850, height - 270);
    
 }
 
